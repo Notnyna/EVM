@@ -1,16 +1,13 @@
 # Disclaimer
-This mod is written incompatible with [Predators Swallow](https://steamcommunity.com/workshop/filedetails/?id=3163169357) as it now includes it, but having both should cause no issue.
-
+Do not have the time or expertise to make a new mod extension, so I did some modifications to the library instead, gomen :p
 
 ## Changes from original
-*Do not have the time or expertise to make a new mod extension, so I did some modifications to the library instead, gomen :p
 - Added [gene Predator] with abilities Devour and Stun.
 - [Stun] allows to incapacitate or paralyze pawns for a chance to strip them or eliminate them without killing. Success depends on melee skill, psychic sensitivity and damagefactor.
 - [Devour] allows to swallow nearby pawn after a prey dodge check
 - Added [mass check] - prey must not weigh more than the predator mass x mawsize *disabled by default in settings. Do you wanna swallow a pawn in marine armour?
 - Added [contents ignore check] - predator cannot endlessly stuff prey inside him beyond what his bodysizeXmawsize allows
 - You can vomit out prey by right clicking the predator pawn.
-
 
 - Created a tale about swallowing - now you can create a sculpture about it.
 - Added thoughts for others about swallowing other pawns and being swallowed, normal pawns are terrified of maneaters.
@@ -25,7 +22,7 @@ This mod is written incompatible with [Predators Swallow](https://steamcommunity
 - Reduce your metabolism by ingesting a new [drug] called [gut neutralizer] other name [heartburn]. Taking it too much will make you puke out the prey so be warned.
 - By default the damage from digestion kills a normal pawn way too fast
 *xml reduced efficiency to 0.2
-- Struggling prey no longer yeet themselves to a devour dimension. They eject themselves before container (usually stomach) is destroyed. Temporary solution just makes the container def undestroyable while it has content. 
+- Struggling prey no longer yeet themselves to a vore dimension. They eject themselves before container (usually stomach) is destroyed. Temporary solution just makes the container def undestroyable while it has content. 
 *Possible side effect - every pawn suddenly have indestructible stomachs...
 
 - Prey now increases mass of the predator. The display is a bit bugged with multiple prey.
@@ -39,16 +36,16 @@ This mod is written incompatible with [Predators Swallow](https://steamcommunity
 *Animals will have devour ability only if you increase their mawsize higher than default! Game restart needed.
 
 # To fix:
-- Do not *under any circumstances* devour a pawn who has devourd a pawn!
+- Do not *under any circumstances* devour a pawn who has devoured a pawn!
 - Reset ability cooldown on devour fail
+- Weird float behavior in settings screen, no clue why it doesn't behave properly, copy paste works though
 - Make a reset button for menu settings
 - Thoughts on pawns for eating their pets
 - Placeholder text can still be seen in detailed screen
-- Weird float behavior in settings screen, no clue why it doesn't behave properly, copy paste works though
 - Fix Harmony patch of predator hunts, something bugs me - they do not actually devour!
 - A safe surgery option to extract contents of stomach. Because my pet anaconda sometimes swallows things I'd like to keep alive.
 - Harmony patch for normal cases where devouring is applicable
-- Try something hacky or harmony patch to ensure contained prey are not deleted by accident and to avoid invulnerability changes to bodypart defs!
+- Try something equally hacky or a harmony patch to ensure contained prey are not deleted by accident and to avoid invulnerability changes to bodypart defs!
 - MeleeDodgeChance does not take into account Verb supriseattack? How to access it? MVCF
 - Deaths while being digested does not change the reference prey, what even are corpses and where do they appear from?
 - Most likely made devouring rocks and items broken
