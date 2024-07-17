@@ -12,7 +12,7 @@ namespace EVM
         public string name;
         public string defName;
         public float preySize;
-
+        //public bool voreAbility;
 
 
         public SettingsAnimal(string name, string defname, float preySize)

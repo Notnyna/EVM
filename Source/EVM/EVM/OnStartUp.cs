@@ -19,7 +19,8 @@ namespace EVM
             // Harmony
             Harmony harmony = new Harmony("com.evm");
             harmony.PatchAll(Assembly.GetExecutingAssembly());
-
+            float defaultMaw = SwallowWholeLibrary.settings.defaultMawSize;
+            Log.Message("startup achieved, defaultmaw: " + defaultMaw);
             // SettingAnimals
             foreach (PawnKindDef pawnKindDef in DefDatabase<PawnKindDef>.AllDefsListForReading)
             {
@@ -31,6 +32,24 @@ namespace EVM
                         if (pawnKindDef.defName == animal.defName)
                         {
                             found = true;
+                            if (!SwallowWholeLibrary.settings.predatorsSwallow) {
+                                break;
+                            }//Logic to add abilities to animals with bigger than default maws
+                            if (animal.preySize > defaultMaw)   {
+                                if (SwallowWholeLibrary.settings.debugOptions)
+                                {
+                                    Log.Message("Adding vore ability: " +pawnKindDef.defName);
+                                }
+                                pawnKindDef.RaceProps.overrideShouldHaveAbilityTracker = true;
+                                if (pawnKindDef.abilities == null) {
+                                    pawnKindDef.abilities = new List<AbilityDef>()
+                                    {
+                                        InternalDefOf.EVM_AbilityVore
+                                    };
+                                } else  {
+                                    pawnKindDef.abilities.Add(InternalDefOf.EVM_AbilityVore);
+                                }
+                            }
                             break;
                         }
                     }
@@ -50,6 +69,9 @@ namespace EVM
 
                         SwallowWholeLibrary.settings.mawList.Add(settingsAnimal);
                     }
+                    
+
+
                 }
             }
             

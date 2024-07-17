@@ -86,13 +86,18 @@ namespace EVM
                     listing_Standard.Gap(12f);
 
                     listing_Standard.CheckboxLabeled("Swallow Ignores Size", ref settings.swallowIgnoresSize, 1f);
+                    listing_Standard.CheckboxLabeled("Swallow Ignores Mass", ref settings.swallowIgnoresMass, 1f);
+                    listing_Standard.CheckboxLabeled("Swallow Ignores Contents", ref settings.swallowIgnoresContents, 1f);
                     listing_Standard.CheckboxLabeled("Debug Options", ref settings.debugOptions, 1f);
-
+                    
                     if (float.TryParse(listing_Standard.TextEntryLabeled("Default Maw Size", settings.DefaultMawSize.ToString()), out float defaultMawSize))
                     {
                         settings.DefaultMawSize = defaultMawSize;
                     }
-
+                    if (float.TryParse(listing_Standard.TextEntryLabeled("Swallow speed factor", settings.swallowSpeed.ToString()), out float SwallowSpeed))
+                    {
+                        settings.swallowSpeed = SwallowSpeed;
+                    }
                     listing_Standard.CheckboxLabeled("Predators Swallow", ref settings.predatorsSwallow, 1f);
 
                     listing_Standard.End();

@@ -10,6 +10,10 @@ namespace EVM.Digestion
 {
     public class DigestionWorker_JoyPred : DigestionWorker
     {
+        public override string GetDescription()
+        {
+            return "Being kept as joy object";
+        }
         public override void ApplyDigestion(SwallowWholeProperties swallowWholeProperties, ThingOwner innerContainer)
         {
             Need_Joy joyNeed = swallowWholeProperties.pred.needs?.TryGetNeed<Need_Joy>();

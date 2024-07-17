@@ -18,21 +18,20 @@ namespace EVM
         static bool DecideIfPredVoresOrNot(JobDriver_PredatorHunt __instance, out bool __state)
         {
             __state = false;
-            
+            //This one is reached
             if (SwallowWholeLibrary.settings.predatorsSwallow && Utils.GetSwallowWholePropertiesFromTags(__instance.pawn, __instance.Prey).IsValid(false))
             {
                 __state = true;
             }
-            
+
             return true;
         }
-
+        //Are we not missing a fix here?
         static IEnumerable<Toil> SwallowWholeIfYouShould(IEnumerable<Toil> toils, JobDriver_PredatorHunt __instance, bool __state, MethodBase __originalMethod, bool ___firstHit, bool ___notifiedPlayerAttacked)
-        {
-            //Log.Message("reach post");
+        { //This is never reached in testing?
             if (__state)
             {
-                //Log.Message("Swallow Whole");
+                if (SwallowWholeLibrary.settings.debugOptions) { Log.Message("EVM Patch PredatorHunt init"); }
                 yield return Toils_General.DoAtomic(delegate
                 {
                     __instance.pawn.MapHeld.attackTargetsCache.UpdateTarget(__instance.pawn);
@@ -55,7 +54,7 @@ namespace EVM
                 };
                 sendMessageIfNeeded();
 
-                yield return Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.ClosestTouch);
+                yield return Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.Touch);
                 yield return Toils_Food.SwallowWhole(Utils.GetSwallowWholePropertiesFromTags(__instance.pawn, __instance.Prey));
                 yield break;
             }

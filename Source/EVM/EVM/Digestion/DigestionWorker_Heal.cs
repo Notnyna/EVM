@@ -10,6 +10,10 @@ namespace EVM.Digestion
 {
     public class DigestionWorker_Heal: DigestionWorker_Tend
     {
+        public override string GetDescription()
+        {
+            return "Being healed inside";
+        }
         public override float Heal(Pawn pawn, float healingPool)
         {
             healingPool = base.Heal(pawn, healingPool);

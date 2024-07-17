@@ -1,0 +1,6 @@
+G:\Rimworld\RimWorld\Mods\EVM\Source\EVM\EVM\bin\Release\EVM.dll
+G:\Rimworld\RimWorld\Mods\EVM\Source\EVM\EVM\bin\Release\EVM.pdb
+G:\Rimworld\RimWorld\Mods\EVM\Source\EVM\EVM\obj\Release\EVM.csproj.CoreCompileInputs.cache
+G:\Rimworld\RimWorld\Mods\EVM\Source\EVM\EVM\obj\Release\EVM.dll
+G:\Rimworld\RimWorld\Mods\EVM\Source\EVM\EVM\obj\Release\EVM.pdb
+G:\Rimworld\RimWorld\Mods\EVM\Source\EVM\EVM\obj\Release\EVM.csprojAssemblyReference.cache

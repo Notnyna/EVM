@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+	<!-- Anaconda -->
+    
+    <Operation Class="PatchOperationAdd">
+        <xpath>Defs/ThingDef[defName="AEXP_Anaconda"]/comps</xpath>
+        <value>
+            <li Class="CombatExtended.CompProperties_ArmorDurability">
+                <Durability>1200</Durability>
+                <Regenerates>true</Regenerates>
+                <RegenInterval>600</RegenInterval>
+                <RegenValue>6</RegenValue>
+                <MinArmorPct>0.75</MinArmorPct>
+            </li>
+        </value>
+    </Operation>
+  
+</Patch>

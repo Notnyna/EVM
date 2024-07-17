@@ -10,6 +10,10 @@ namespace EVM.Digestion
 {
     public class DigestionWorker_Regenerate: DigestionWorker_HealScars
     {
+        public override string GetDescription()
+        {
+            return "Being regenerated";
+        }
         public Hediff chosen = null;
         public float progress = 0;
 

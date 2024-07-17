@@ -48,13 +48,50 @@
 		</symbolPack>
 		<selectionWeight>0</selectionWeight>
 	</GeneDef>
-	
+	-->
 	<!-- Digestion Workers -->
 	
 		<!-- Skipping Fatal as it is by default -->
 	
 		<!-- Healing -->
 		
+	<GeneDef>
+		<defName>EVM_Predator</defName>
+		<label>Beastial Predator</label>
+		<description>Grants ability to prey on and swallow targets whole.</description>
+        <abilities>
+          <li>EVM_AbilityStun</li>
+          <li>EVM_AbilityVore</li>
+        </abilities>
+    <descriptionHyperlinks>
+      <AbilityDef>EVM_AbilityStun</AbilityDef>
+      <AbilityDef>EVM_AbilityVore</AbilityDef>
+    </descriptionHyperlinks>
+		<biostatCpx>4</biostatCpx>
+		<biostatMet>-6</biostatMet>
+        
+		 <iconPath>UI/GenePred/BS_FeedingFrenzy</iconPath>
+        
+		<displayCategory>Ability</displayCategory>
+		<displayOrderInCategory>10</displayOrderInCategory>
+		<iconColor>(255,255,255)</iconColor>
+		<symbolPack>
+			<prefixSymbols>
+				<li>
+					<symbol>vore</symbol>
+				</li>
+				<li>
+					<symbol>pred</symbol>
+				</li>
+				<li>
+					<symbol>snek</symbol>
+				</li>
+			</prefixSymbols>
+		</symbolPack>
+		<selectionWeight>0</selectionWeight>
+	</GeneDef>
+        
+        
 	<GeneDef>
 		<defName>EVM_DigestionWorker_Tend</defName>
 		<label>Tending Stomach</label>
@@ -265,5 +302,6 @@
 			</prefixSymbols>
 		</symbolPack>
 		<selectionWeight>0</selectionWeight>
-	</GeneDef>-->
+	</GeneDef>
+    
 </Defs>

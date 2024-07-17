@@ -10,6 +10,7 @@ namespace EVM.Digestion
 {
     public abstract class DigestionWorker: IExposable
     {
+        public virtual string GetDescription() { return "Unknown digestion type"; }
         public virtual float GetDigestionEfficiancy(SwallowWholeProperties swallowWholeProperties)
         {
             if (!swallowWholeProperties.pred.health.capacities.CapableOf(InternalDefOf.Metabolism))
@@ -62,20 +63,31 @@ namespace EVM.Digestion
                     {
                         damage /= 2;
                     }
-                    
-                    swallowWholeProperties.pred.TakeDamage(new DamageInfo(
-                            damageDef,
-                            damage,
-                            500f,
-                            -1,
-                            struggler,
-                            swallowWholeProperties.pred.RaceProps.body.GetPartsWithDef(swallowWholeProperties.digestiveTracks[swallowWholeProperties.trackId].track[swallowWholeProperties.trackStage])[0],
-                            null,
-                            DamageInfo.SourceCategory.ThingOrUnknown,
-                            swallowWholeProperties.pred,
-                            false,
-                            false
-                        ));
+                    BodyPartRecord a = swallowWholeProperties.pred.RaceProps.body.GetPartsWithDef(swallowWholeProperties.digestiveTracks[swallowWholeProperties.trackId].track[swallowWholeProperties.trackStage])[0];
+                    float partHealth = swallowWholeProperties.pred.health.hediffSet.GetPartHealth(a);
+                    if (partHealth <= damage)
+                    {
+                        if (SwallowWholeLibrary.settings.debugOptions) {
+                            Log.Message(pawn + " should able to escape!");
+                        }
+                        swallowWholeProperties.escape = true;
+                    } // Prevent prey from erasing themselves into memory leaks
+                    else
+                    {
+                        swallowWholeProperties.pred.TakeDamage(new DamageInfo(
+                              damageDef,
+                              damage,
+                              500f,
+                              -1,
+                              struggler,
+                              a,
+                              null,
+                              DamageInfo.SourceCategory.ThingOrUnknown,
+                              swallowWholeProperties.pred,
+                              false,
+                              false
+                          ));
+                    }
                 }
             }
         }

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <AbilityDef ParentName="AbilityTouchBase">
+    <defName>EVM_AbilityStun</defName>
+    <label>incapacitate</label>
+    <description>Scare the living hell of or attempt to incapacitate a human pawn. Relies on melee and psychic sensitivity. Unlucky victims can be knocked out for a whole day. Can be dodged.</description>
+    <cooldownTicksRange>3000</cooldownTicksRange>
+    <aiCanUse>true</aiCanUse>
+    <displayOrder>100</displayOrder>
+    <hostile>true</hostile>
+    <casterMustBeCapableOfViolence>true</casterMustBeCapableOfViolence>
+    <ai_IsOffensive>true</ai_IsOffensive>
+    
+    <displayGizmoWhileUndrafted>false</displayGizmoWhileUndrafted>
+    <disableGizmoWhileUndrafted>false</disableGizmoWhileUndrafted>
+    
+    <iconPath>UI/Abilities/VoidTerror</iconPath>
+    <warmupStartSound>EVM_Resist</warmupStartSound>
+    
+    <verbProperties>
+      <verbClass>Verb_CastAbilityTouch</verbClass>
+      <drawAimPie>false</drawAimPie>
+      <range>-1</range>
+      <warmupTime>1</warmupTime>
+      <targetParams>
+        <canTargetAnimals>false</canTargetAnimals>
+        <canTargetPawns>true</canTargetPawns>
+        <canTargetSelf>false</canTargetSelf>
+        <canTargetBuildings>false</canTargetBuildings>
+        <canTargetMechs>false</canTargetMechs>
+      </targetParams>
+    </verbProperties>
+    
+    <comps>
+      <li Class="CompProperties_AbilityGiveHediff">
+        <compClass>EVM.CompAbilityEffect_MeleeAmbushHediff</compClass>
+        <hediffDef>EVM_StunState</hediffDef>
+        <onlyApplyToSelf>false</onlyApplyToSelf>
+      </li>
+      <li Class="CompProperties_AbilityFleckOnTarget">
+        <fleckDef>BodyImpact</fleckDef>
+      </li>
+    </comps>
+  </AbilityDef>
+  
+  <HediffDef>
+    <defName>EVM_StunState</defName>
+    <label>incapacitated</label>
+    <description>Recovering from being stunned</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-24.0</severityPerDay>
+        <showHoursToRecover>true</showHoursToRecover>
+      </li>
+      <li Class="HediffCompProperties_DisappearsOnDeath"/>
+    </comps>
+    <isBad>true</isBad>
+    <maxSeverity>12</maxSeverity>
+    
+      <stages>
+        <li>
+          <label>spooked</label>
+        <capMods>
+          <li>
+            <capacity>Consciousness</capacity>
+            <offset>-0.10</offset>
+          </li>
+          <li>
+            <capacity>Moving</capacity>
+            <offset>-0.30</offset>
+          </li>
+        </capMods>
+        </li>
+        
+        <li>
+          <minSeverity>1</minSeverity>
+          <label>paralyzed</label>
+        <capMods>
+          <li>
+            <capacity>Consciousness</capacity>
+            <setMax>0.50</setMax>
+          </li>
+          <li>
+            <capacity>Moving</capacity>
+            <setMax>0.01</setMax>
+          </li>
+        </capMods>
+        </li>
+        
+        <li>
+          <minSeverity>4</minSeverity>
+          <label>knocked out</label>
+            <capMods>
+              <li>
+                <capacity>Consciousness</capacity>
+                <setMax>0.01</setMax>
+              </li>
+              <li>
+                <capacity>Moving</capacity>
+                <setMax>0.01</setMax>
+              </li>
+            </capMods>
+        </li>
+       
+      </stages>
+  </HediffDef>
+  <!--
+  <JobDef>
+    <defName>EVM_CastAbilityStepOver</defName>
+    <driverClass>JobDriver_CastAbilityMelee</driverClass>
+    <casualInterruptible>false</casualInterruptible>
+    <collideWithPawns>false</collideWithPawns>
+    <neverShowWeapon>true</neverShowWeapon>
+  </JobDef>
+  -->
+  <AbilityDef>
+    <defName>EVM_AbilityVore</defName>
+    <label>devour</label>
+    <description>Attempt to swallow target whole. Can be dodged.</description>
+    <cooldownTicksRange>6000</cooldownTicksRange>
+    <aiCanUse>true</aiCanUse>
+    <displayOrder>100</displayOrder>
+    <hostile>true</hostile>
+    <ai_IsOffensive>true</ai_IsOffensive>
+    <casterMustBeCapableOfViolence>true</casterMustBeCapableOfViolence>
+    
+    <stunTargetWhileCasting>true</stunTargetWhileCasting>
+    <displayGizmoWhileUndrafted>false</displayGizmoWhileUndrafted>
+    <disableGizmoWhileUndrafted>false</disableGizmoWhileUndrafted>
+    <jobDef>CastAbilityOnThingMelee</jobDef>
+
+    
+    <iconPath>UI/GenePred/BS_FeedingFrenzy</iconPath>
+    <warmupStartSound>EVM_Mog</warmupStartSound>
+    
+    <verbProperties>
+      <verbClass>Verb_CastAbilityTouch</verbClass>
+      <label>vore</label>
+      <range>-1</range>
+      <requireLineOfSight>true</requireLineOfSight>
+      <warmupTime>1.25</warmupTime>
+      <stunTargetOnCastStart>true</stunTargetOnCastStart>
+      <targetParams>
+        <canTargetAnimals>true</canTargetAnimals>
+        <canTargetCorpses>true</canTargetCorpses>
+        <canTargetPawns>true</canTargetPawns>
+        <canTargetSelf>false</canTargetSelf>
+        <canTargetBuildings>false</canTargetBuildings>
+        <canTargetMechs>true</canTargetMechs>
+      </targetParams>
+    </verbProperties>
+    
+    <comps>
+      <li Class="CompProperties_AbilityRequiresCapacity">
+        <capacity>Eating</capacity>
+      </li>
+      <li Class="EVM.CompProperties_Vore" />
+    </comps>
+  </AbilityDef>
+  
+  
+</Defs>

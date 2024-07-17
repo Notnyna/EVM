@@ -10,7 +10,10 @@ namespace EVM.Digestion
 {
     public class DigestionWorker_Fatal : DigestionWorker
     {
-
+        public override string GetDescription()
+        {
+            return "Being digested fatally";
+        }
         public override void ApplyDigestion(SwallowWholeProperties swallowWholeProperties, ThingOwner innerContainer)
         {
             float digestionEfficiancy = base.GetDigestionEfficiancy(swallowWholeProperties);
@@ -24,6 +27,13 @@ namespace EVM.Digestion
                 {
                     if (swallowWholeProperties.canDigest(thing))
                     {
+                        bool justdied = true;
+
+                        if (swallowWholeProperties.checkIsAlive())
+                        {
+                            justdied = false;
+                        }
+
                         thing.TakeDamage(new DamageInfo(
                             swallowWholeProperties.digestionDamageType,
                             damage,
@@ -37,6 +47,13 @@ namespace EVM.Digestion
                             true,
                             false
                         ));
+                        if ((!justdied) & (!swallowWholeProperties.checkIsAlive()))
+                        { //Are pawns corpses? Do corpses hold pawns? What is this rimworld jungle.
+                            Find.BattleLog.Add(new BattleLogEntry_Event(swallowWholeProperties.pred, RulePackDefOf.Event_DevourerDigestionCompleted, (Pawn)thing));
+                            //swallowWholeProperties.prey = (Corpse)swallowWholeProperties.prey;
+                            //Where to get the corpse?
+                        }
+
                     }
                 }
             }
@@ -71,7 +88,6 @@ namespace EVM.Digestion
                     {
                         // may not exist
                     }
-
                     nutrition += thisNutrition;
                 }
             }
@@ -87,41 +103,33 @@ namespace EVM.Digestion
             {
                 if (voreProperties.canDigest(thing))
                 {
-                    float factor = 0f;
-
-                    try
-                    {
+                    float factor = 1f;
+                    float totalNutrition = 0.1f;
+                    try   {
                         factor = thing.HitPoints / thing.MaxHitPoints;
                     }
-                    catch
-                    {
+                    catch  {
                         // thing may not use this hp system
+                        return 0;
                     }
 
-                    Corpse corpse = null;
-
-                    if (thing is Corpse maybe)
+                    if (thing is Corpse)
                     {
-                        corpse = maybe;
+                        totalNutrition = thing.GetStatValue(StatDefOf.Nutrition);
+                        factor = 1;
                     }
                     else if (thing is Pawn pawn)
                     {
-                        corpse = pawn.Corpse;
+                        totalNutrition = pawn.GetStatValue(StatDefOf.MeatAmount)*0.05f;
                         factor = pawn.health.summaryHealth.SummaryHealthPercent;
+                        factor = factor / 2; //Living pawns are twice as hard to digest
                     }
-
-                    float totalNutrition = 0.9f;
-
-                    try
-                    {
-                        totalNutrition = thing.GetStatValue(StatDefOf.Nutrition);
-                    }
-                    catch
-                    {
-                        // may not exist
-                    }
-
+                    factor = factor * base.GetDigestionEfficiancy(voreProperties);
                     nutrition += totalNutrition * factor;
+                    if (SwallowWholeLibrary.settings.debugOptions)
+                    {
+                        Log.Message("Nutrition gained? : " + totalNutrition.ToString() + " Factor: " + factor.ToString());
+                    }
                 }
             }
 

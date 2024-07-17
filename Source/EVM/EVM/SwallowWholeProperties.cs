@@ -68,6 +68,8 @@ namespace EVM
         public int trackStage = 0; // ID of the part in track
         public bool struggle = true;
 
+        public bool escape = false; // Hack
+
         // Methods
         public virtual bool IsValid(bool throwMessage)
         {
@@ -104,20 +106,43 @@ namespace EVM
                 return false;
             }
 
-            if (!SwallowWholeLibrary.settings.swallowIgnoresSize && prey is Pawn preyPawn)
+            if (prey is Pawn preyPawn)
             {
-                if (preyPawn.BodySize > pred.BodySize * mawSize)
-                {
-                    if (throwMessage)
+                if (!SwallowWholeLibrary.settings.swallowIgnoresSize){
+                    if (preyPawn.BodySize > pred.BodySize * mawSize)
                     {
-                        Messages.Message("Vore invalid: Maw too small", MessageTypeDefOf.NegativeEvent, false);
+                        if (throwMessage)
+                        {
+                            Messages.Message("Vore invalid: Maw too small", MessageTypeDefOf.NegativeEvent, false);
+                        }
+
+                        return false;
                     }
-                    
-                    return false;
+                }
+                if (!SwallowWholeLibrary.settings.swallowIgnoresMass)
+                {
+                    float predmass = pred.GetStatValue(StatDefOf.Mass) - MassUtility.GearAndInventoryMass(pred);
+                    if (preyPawn.GetStatValue(StatDefOf.Mass) > predmass * mawSize)
+                    {
+                        if (throwMessage)
+                        {
+                            Messages.Message("Vore invalid: Mass bigger than pred", MessageTypeDefOf.NegativeEvent, false);
+                        }
+
+                        return false;
+                    }
                 }
             }
 
             return true;
+        }
+
+        public bool checkIsAlive() {
+            if (prey is Pawn preyPawn)
+            {
+                if (!preyPawn.Dead) { return true; } //Possibly redundant? Are corpses pawns?
+            }
+            return false;
         }
 
         public void ExposeData()

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+	<!-- Anaconda 
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="AEXP_Anaconda"]/race</xpath>
+		<value>
+            <overrideShouldHaveAbilityTracker>true</overrideShouldHaveAbilityTracker>
+		</value>
+	</Operation>
+
+    <Operation Class="PatchOperationConditional">
+		<xpath>Defs/PawnKindDef[defName="AEXP_Anaconda"]/abilities</xpath>
+		<nomatch Class="PatchOperationAdd">
+			<xpath>Defs/PawnKindDef[defName="AEXP_Anaconda"]</xpath>
+			<value>
+				<abilities/>
+			</value>
+		</nomatch>
+	</Operation>   
+    
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/PawnKindDef[defName="AEXP_Anaconda"]/abilities</xpath>
+		<value>
+            <li>EVM_AbilityVore</li>
+		</value>
+	</Operation>
+    
+-->
+    
+	<!-- Stat buffs! -->
+    
+    <Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="AEXP_Anaconda"]/race/baseHealthScale</xpath>
+		<value>
+            <baseHealthScale>5</baseHealthScale>
+        </value>
+	</Operation> 
+    
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/BodyPartDef[defName="SnakeBody"]/hitPoints</xpath>
+		<value>
+			<hitPoints>80</hitPoints>
+		</value>
+	</Operation>
+    
+    <Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="AEXP_Anaconda"]/race/trainability</xpath>
+        <value>
+            <trainability>Advanced</trainability>
+        </value>
+	</Operation> 
+    
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="AEXP_Anaconda"]/statBases</xpath>
+		<value>
+          <ArmorRating_Sharp>0.2</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.6</ArmorRating_Blunt>
+          <ArmorRating_Heat>0.3</ArmorRating_Heat>
+		</value>
+	</Operation>
+    
+    
+
+    
+    
+<!--     Make  Draftable!
+    <Operation Class="PatchOperationConditional">
+		<xpath>Defs/ThingDef[defName="AEXP_Anaconda"]/comps</xpath>
+		<nomatch Class="PatchOperationAdd">
+			<xpath>Defs/ThingDef[defName="AEXP_Anaconda"]</xpath>
+			<value>
+				<comps/>
+			</value>
+		</nomatch>
+	</Operation> 
+    
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="AEXP_Anaconda"]/comps</xpath>
+		<value>
+            <li Class="AnimalBehaviours.CompProperties_Draftable">
+                <makeNonFleeingToo>true</makeNonFleeingToo>
+            </li>
+		</value>
+	</Operation>
+-->
+
+
+
+</Patch>

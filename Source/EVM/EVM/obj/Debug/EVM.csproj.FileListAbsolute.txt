@@ -3,3 +3,7 @@ D:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\EVM\Source\EVM\EVM\o
 D:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\EVM\Source\EVM\EVM\obj\Debug\EVM.csproj.CoreCompileInputs.cache
 D:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\EVM\Source\EVM\EVM\obj\Debug\EVM.dll
 D:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\EVM\1.5\Assemblies\EVM.dll
+G:\Rimworld\RimWorld\Mods\EVM\Source\EVM\EVM\obj\Debug\EVM.csprojAssemblyReference.cache
+G:\Rimworld\RimWorld\Mods\EVM\Source\EVM\EVM\obj\Debug\EVM.csproj.CoreCompileInputs.cache
+G:\Rimworld\RimWorld\Mods\EVM\Source\EVM\EVM\obj\Debug\EVM.dll
+G:\Rimworld\RimWorld\Mods\EVM\1.5\Assemblies\EVM.dll

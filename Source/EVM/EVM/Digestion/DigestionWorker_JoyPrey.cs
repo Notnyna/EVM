@@ -10,6 +10,10 @@ namespace EVM.Digestion
 {
     public class DigestionWorker_JoyPrey : DigestionWorker
     {
+        public override string GetDescription()
+        {
+            return "Being held in pleasure";
+        }
         public override void ApplyDigestion(SwallowWholeProperties voreProperties, ThingOwner innerContainer)
         {
             foreach (Thing thing in innerContainer)

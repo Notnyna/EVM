@@ -10,6 +10,10 @@ namespace EVM.Digestion
 {
     public class DigestionWorker_Safe : DigestionWorker
     {
+        public override string GetDescription()
+        {
+            return "Being held safe";
+        }
         public override void ApplyDigestion(SwallowWholeProperties swallowWholeProperties, ThingOwner innerContainer)
         {
             

@@ -40,7 +40,6 @@ namespace EVM
             //        }
             //    }
             //}
-
             swallowWholeProperties.mawSize = SwallowWholeLibrary.settings.DefaultMawSize;
 
             if (pred.RaceProps.Animal)
@@ -57,13 +56,13 @@ namespace EVM
             } 
             else if (pred.RaceProps.Humanlike)
             {
-                Log.Message(pred.Name.ToStringFull);
-                Log.Message(pred.genes);
-                Log.Message(pred.genes.Xenotype);
-                Log.Message(pred.genes.Xenotype.defName);
+                //Log.Message(pred.Name.ToStringFull);
+                //Log.Message(pred.genes);
+                //Log.Message(pred.genes.Xenotype);
+                //Log.Message(pred.genes.Xenotype.defName);
                 foreach (XenotypeUnifier xenotypeUnifier in SwallowWholeLibrary.settings.xenotypes)
                 {
-                    Log.Message("You'd better not be null");
+                    //Log.Message("You'd better not be null");
                     if (pred.genes.Xenotype != null)
                     {
                         if (xenotypeUnifier.ToString() == pred.genes.Xenotype.defName)
@@ -93,7 +92,7 @@ namespace EVM
                 //    swallowWholeProperties.mawSize = matches.First();
                 //}
             }
-            Log.Message("DT");
+            //Log.Message("DT");
             // Digestive Tracks
             BodyPartExtension bodyPartExtension = pred.RaceProps.body.GetModExtension<BodyPartExtension>();
             if (bodyPartExtension != null) 
@@ -103,7 +102,7 @@ namespace EVM
                     swallowWholeProperties.digestiveTracks = bodyPartExtension.digestiveTracks;
                 }
             }
-            Log.Message("Stomach");
+            //Log.Message("Stomach");
             // Stomach
             if (trackId < swallowWholeProperties.digestiveTracks.Count)
             {
@@ -169,21 +168,26 @@ namespace EVM
                 }
                 else
                 {
-                    Log.Error("[EVM.Utils.GetSwallowWholePropertiesFromTags]: trackStage out of bounds");
+                    //Log.Error("[EVM.Utils.GetSwallowWholePropertiesFromTags]: trackStage out of bounds");
                 }
             }
             else
             {
-                Log.Error("[EVM.Utils.GetSwallowWholePropertiesFromTags]: trackId out of bounds");
+                //Log.Error("[EVM.Utils.GetSwallowWholePropertiesFromTags]: trackId out of bounds");
             }
-            Log.Message("End");
+            //Log.Message("End");
             return swallowWholeProperties;
         }
 
         public static bool SwallowWhole(PreyContainer preyContainer, Thing thing)
         {
             thing.DeSpawnOrDeselect(DestroyMode.Vanish);
-
+            if (thing is Pawn pawn)
+            {
+                if (!pawn.Dead) {
+                    pawn.health.AddHediff(InternalDefOf.EVM_Digested, null, null, null);
+                }
+            }
             if (thing.holdingOwner != null)
             {
                 thing.holdingOwner.TryTransferToContainer(thing, preyContainer.innerContainer, thing.stackCount, true);
@@ -193,6 +197,64 @@ namespace EVM
             {
                 return preyContainer.innerContainer.TryAdd(thing, true);
             }
+        }
+
+        //Is this even neccesary? I have a feeling I am missing something
+        public static float GetBodysize(Thing thing) 
+        {
+            if (thing is Pawn p)
+            {
+                return p.BodySize;
+            }
+            else if (thing is Corpse c)
+            {
+                return c.InnerPawn.BodySize;
+            }
+            else { //mass, CE bulk or some other?
+                return 0.5f;
+            }
+        }
+
+        public static bool Dodged(Pawn prey) {
+            //RimWorld.Verb_MeleeAttack
+            //assume prey is not a rock
+            Thing thing = prey as Thing;
+            float num = prey.GetStatValue(StatDefOf.MeleeDodgeChance, true, -1);
+            if (thing.def.category == ThingCategory.Pawn && !prey.Downed)
+            {
+                if (prey.GetPosture() != PawnPosture.Standing) { return false; }
+            }
+            Stance_Busy stance_Busy = prey.stances.curStance as Stance_Busy;
+            if (stance_Busy != null && stance_Busy.verb != null && !stance_Busy.verb.verbProps.IsMeleeAttack)
+            {
+                return false;
+            }
+
+            if (ModsConfig.IdeologyActive)
+            {
+                if (DarknessCombatUtility.IsOutdoorsAndLit(prey))
+                {
+                    num += prey.GetStatValue(StatDefOf.MeleeDodgeChanceOutdoorsLitOffset, true, -1);
+                }
+                else if (DarknessCombatUtility.IsOutdoorsAndDark(prey))
+                {
+                    num += prey.GetStatValue(StatDefOf.MeleeDodgeChanceOutdoorsDarkOffset, true, -1);
+                }
+                else if (DarknessCombatUtility.IsIndoorsAndDark(prey))
+                {
+                    num += prey.GetStatValue(StatDefOf.MeleeDodgeChanceIndoorsDarkOffset, true, -1);
+                }
+                else if (DarknessCombatUtility.IsIndoorsAndLit(prey))
+                {
+                    num += prey.GetStatValue(StatDefOf.MeleeDodgeChanceIndoorsLitOffset, true, -1);
+                }
+            }
+            if (Rand.Chance(num))
+            {
+                return true;
+            }
+            return false;
+
         }
 
         // Predicates

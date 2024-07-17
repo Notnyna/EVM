@@ -3,7 +3,10 @@
 	<JobDef>
 		<defName>EVM_Eat</defName>
 		<driverClass>EVM.JobDriver_SwallowWhole</driverClass>
-		<reportString>eating TargetA.</reportString>
+		<reportString>devouring TargetA.</reportString>
+        <casualInterruptible>false</casualInterruptible>
+        <collideWithPawns>false</collideWithPawns>
+        <neverShowWeapon>true</neverShowWeapon>
 	</JobDef>
 	
 	<JobDef>
@@ -11,4 +14,5 @@
 		<driverClass>EVM.JobDriver_Regurgitate</driverClass>
 		<reportString>regurgitating TargetA.</reportString>
 	</JobDef>
+    
 </Defs>

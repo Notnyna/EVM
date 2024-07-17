@@ -10,6 +10,10 @@ namespace EVM.Digestion
 {
     public class DigestionWorker_Tend : DigestionWorker
     {
+        public override string GetDescription()
+        {
+            return "Being tended";
+        }
         public virtual float Heal(Pawn pawn, float healingPool)
         {
             while (healingPool > 0f && pawn.health.hediffSet.GetHediffsTendable().Count<Hediff>() > 0)

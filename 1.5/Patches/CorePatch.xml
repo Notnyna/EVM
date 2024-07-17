@@ -36,7 +36,7 @@
 		<value>
 			<li Class="EVM.BodyPartExtension">
 				<baseDamage>10</baseDamage>
-				<digestionEfficiancy>1</digestionEfficiancy>
+				<digestionEfficiancy>0.2</digestionEfficiancy>
 				<comfort>1</comfort>
 				<deadline>180000</deadline>
 				<grantsNutrition>true</grantsNutrition>
@@ -99,4 +99,41 @@
 			</li>
 		</value>
 	</Operation>
+    
+    
+    
+    <!-- Add to ALL ANIMAL thinktree to allow for vore ability. There is a better way to do this!-->
+ 	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThinkTreeDef[defName="Animal"]/thinkRoot/subNodes</xpath>
+		<value>
+            <li Class="ThinkNode_ConditionalHasAbility">
+              <ability>EVM_AbilityVore</ability>
+              <subNodes>
+                <li Class="ThinkNode_ConditionalHashIntervalTick">
+                  <interval>65</interval>
+                  <subNodes>
+                        <li Class="JobGiver_AIAbilityFight">
+                          <targetAcquireRadius>20</targetAcquireRadius>
+                          <targetKeepRadius>20</targetKeepRadius>
+                          <ability>EVM_AbilityVore</ability>
+                        </li>
+                  </subNodes>
+                </li>
+              </subNodes>
+            </li>
+		</value>
+	</Operation>
+    
+    <!-- Got no clue why it doesnt work?
+    <Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="AnimalThingBase"]/recipes</xpath>
+		<value>
+           <li>EVM_RescuePrey</li>
+		</value>
+	</Operation>
+    -->
+    
+    
+    
+    
 </Patch>

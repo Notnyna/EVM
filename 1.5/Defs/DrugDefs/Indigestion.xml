@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <ThingDef ParentName="DrugBase">
+    <defName>EVM_Safevore</defName>
+    <label>gut neutralizer</label>
+    <description>A concotion used to neutralize stomach acid and suppressing digestive functions. Multiple doses recommended. Noticeably causes heartburn, which can be treated by consuming salt.</description>
+    
+    <graphicData>
+      <texPath>Things/EVM_Safevore</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
+    <rotatable>false</rotatable>
+    <stackLimit>25</stackLimit>
+    <statBases>
+       <WorkToMake>200</WorkToMake>
+      <MarketValue>5</MarketValue>
+      <Mass>0.1</Mass>
+      <Flammability>0.5</Flammability>
+    </statBases>
+		<recipeMaker>
+			<recipeUsers>
+				<li>CraftingSpot</li>
+                <li>DrugLab</li>
+			</recipeUsers>
+		</recipeMaker>
+		<costList>
+			<MedicineHerbal>1</MedicineHerbal>
+			<RawFungus>10</RawFungus>
+		</costList>
+    <ingestible>
+      <foodType>Fluid, Processed, Liquor</foodType>
+      <drugCategory>Medical</drugCategory>
+      <ingestSound>Ingest_Beer</ingestSound>
+      <ingestHoldOffsetStanding>
+        <northDefault>
+          <offset>(0.18,0,0)</offset>
+        </northDefault>
+      </ingestHoldOffsetStanding>
+      <ingestCommandString>Drink {0}</ingestCommandString>
+      <ingestReportString>Drinking {0}.</ingestReportString>
+			<canAutoSelectAsFoodForCaravan>false</canAutoSelectAsFoodForCaravan>
+			<tableDesired>false</tableDesired>
+      <outcomeDoers>
+        <li Class="IngestionOutcomeDoer_GiveHediff">
+          <hediffDef>EVM_Heartburn</hediffDef>
+          <severity>1.0</severity>
+          <divideByBodySize>true</divideByBodySize>
+        </li>
+      </outcomeDoers>
+    </ingestible>
+    <comps>
+      <li Class="CompProperties_Drug">
+      </li>
+    </comps>
+  </ThingDef>
+
+	<ThoughtDef>
+		<defName>EVM_HeartburnDrug</defName>
+         <hediff>EVM_Heartburn</hediff>
+		<durationDays>1</durationDays>
+		<stackLimit>1</stackLimit>	
+		<stages>
+			<li>
+				<label>drank gut neutralizer</label>
+				<description>Disgusting swill.</description>
+				<baseMoodEffect>-4</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+  <HediffDef>
+    <defName>EVM_Heartburn</defName>
+    <label>heartburn</label>
+    <description>Stomach acid is being neutralized, causes indigestion. Large enough doses causes to vomit everything out.</description>
+    <defaultLabelColor>(0.5,0.5,0)</defaultLabelColor>
+    <scenarioCanAdd>true</scenarioCanAdd>
+    <hediffClass>Hediff_High</hediffClass>
+    <maxSeverity>3</maxSeverity>
+    <isBad>false</isBad>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-2.0</severityPerDay>
+        <showHoursToRecover>true</showHoursToRecover>
+      </li>
+    </comps>
+      <stages>
+        <li>
+          <label>mild</label>
+            <capMods>
+              <li>
+                <capacity>Metabolism</capacity>
+                <offset>-0.20</offset>
+              </li>
+            </capMods>
+        </li>
+        
+        <li>
+          <minSeverity>0.4</minSeverity>
+          <label>moderate</label>
+            <capMods>
+              <li>
+                <capacity>Metabolism</capacity>
+                <setMax>0.6</setMax>
+              </li>
+            </capMods>
+        </li>
+        
+        <li>
+          <minSeverity>0.8</minSeverity>
+          <label>heavy</label>
+            <capMods>
+              <li>
+                <capacity>Metabolism</capacity>
+                <setMax>0.2</setMax>
+              </li>
+            </capMods>
+        </li>
+        <li>
+          <minSeverity>1.0</minSeverity>
+          <label>complete</label>
+            <capMods>
+              <li>
+                <capacity>Metabolism</capacity>
+                <setMax>0.1</setMax>
+              </li>
+            </capMods>
+        </li>
+        
+      </stages>
+  </HediffDef>
+
+
+</Defs>

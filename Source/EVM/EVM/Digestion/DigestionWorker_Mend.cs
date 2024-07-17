@@ -10,6 +10,10 @@ namespace EVM.Digestion
 {
     public class DigestionWorker_Mend : DigestionWorker
     {
+        public override string GetDescription()
+        {
+            return "Being mended";
+        }
         public override void ApplyDigestion(SwallowWholeProperties swallowWholeProperties, ThingOwner innerContainer)
         {
             float mendingPool = swallowWholeProperties.baseDamage * base.GetDigestionEfficiancy(swallowWholeProperties);

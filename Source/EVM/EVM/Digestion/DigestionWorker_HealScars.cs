@@ -10,6 +10,10 @@ namespace EVM.Digestion
 {
     public class DigestionWorker_HealScars: DigestionWorker_Heal
     {
+        public override string GetDescription()
+        {
+            return "Being healed with scars";
+        }
         public bool healScars = false;
 
         public override float Heal(Pawn pawn, float healingPool)

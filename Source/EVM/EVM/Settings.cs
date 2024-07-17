@@ -13,10 +13,12 @@ namespace EVM
         // Mod Options
         public int nutritionGainOption = (int)NutritionGainOptions.OnEating;
         public bool swallowIgnoresSize = false;
+        public bool swallowIgnoresMass = true;
         public bool debugOptions = false;
-        private float defaultMawSize = 0.8f;
+        public float defaultMawSize = 0.5f;
         public bool predatorsSwallow = true;
-
+        public bool swallowIgnoresContents = false;
+        public float swallowSpeed = 1.0f;
         // Animal Maw
         public List<SettingsAnimal> mawList = new List<SettingsAnimal>();
 
@@ -30,9 +32,12 @@ namespace EVM
             // Mod Options
             Scribe_Values.Look<int>(ref nutritionGainOption, "EVM_NutritionGainOption");
             Scribe_Values.Look<bool>(ref swallowIgnoresSize, "EVM_SwallowIgnoresSize");
+            Scribe_Values.Look<bool>(ref swallowIgnoresMass, "EVM_SwallowIgnoresMass");
+            Scribe_Values.Look<bool>(ref swallowIgnoresContents, "EVM_swallowIgnoresContents");
             Scribe_Values.Look<bool>(ref debugOptions, "EVM_debugOptions");
-            Scribe_Values.Look<float>(ref defaultMawSize, "Evm_DefaultMawSize");
+            Scribe_Values.Look<float>(ref defaultMawSize, "EVM_DefaultMawSize");
             Scribe_Values.Look<bool>(ref predatorsSwallow, "EVM_PredatorsSwallow");
+            Scribe_Values.Look<float>(ref swallowSpeed, "EVM_swallowSpeed");
 
             // Animal Maw
             Scribe_Collections.Look(ref mawList, "EVM_MawList", LookMode.Deep);
@@ -45,8 +50,10 @@ namespace EVM
 
         // Wont be saved
         public SettingTabs tab = SettingTabs.ModOptions;
-        public List<SettingsAnimal> animalMawException = new List<SettingsAnimal>() { 
-            new SettingsAnimal() { defName = "Cobra", preySize = 2f }
+        public List<SettingsAnimal> animalMawException = new List<SettingsAnimal>() {
+            new SettingsAnimal() { defName = "Cobra", preySize = 2f },
+            new SettingsAnimal() { defName = "Thrumbo", preySize = 0.8f },
+            new SettingsAnimal() { defName = "AEXP_Anaconda", preySize = 1.2f }
         };
         public List<XenotypeUnifier> xenotypeMawException = new List<XenotypeUnifier>();
 

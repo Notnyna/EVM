@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<loadFolders>
+	<v1.5>
+		<!-- Core Files -->
+		<li>1.5</li>
+		<!-- Mod Patches -->
+		<li IfModActive="VanillaExpanded.VanillaAnimalsExpanded">ModPatches/Vanilla Animals Expanded</li>
+        <li IfModActive="CETeam.CombatExtended">ModPatches/Combat Extended</li>
+	</v1.5>
+</loadFolders>
